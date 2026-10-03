@@ -1,0 +1,34 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { type Locale, messagesOf } from '../i18n/locales';
+import { site } from '../site';
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { footer } = messagesOf(locale);
+---
+
+<footer class="border-t">
+    <div class="mx-auto max-w-6xl space-y-4 px-4 py-10 text-sm text-muted-foreground sm:px-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <p>
+                <span class="font-semibold text-foreground">{site.name}</span> — {footer.tagline}
+            </p>
+            <ul class="flex items-center gap-6">
+                <li>
+                    <a href={site.repositoryUrl} rel="noopener" class="hover:text-foreground">GitHub</a>
+                </li>
+                <li>
+                    <a href={getRelativeLocaleUrl(locale, 'privacy')} class="hover:text-foreground">
+                        {footer.privacy}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p>© {new Date().getFullYear()} {site.name}. {footer.trademark}</p>
+    </div>
+</footer>

@@ -1,0 +1,47 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { type Locale, localeStaticPaths, messagesOf } from '../../i18n/locales';
+import Page from '../../layouts/Page.astro';
+import { deployment, site } from '../../site';
+
+export const getStaticPaths = localeStaticPaths;
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { privacy } = messagesOf(locale);
+
+function withDeploymentValues(text: string): string {
+    return text
+        .replaceAll('{publisher}', deployment.publisherName)
+        .replaceAll('{email}', deployment.contactEmail);
+}
+---
+
+<Page
+    locale={locale}
+    path="privacy"
+    title={`${privacy.title} — ${site.name}`}
+    description={privacy.description}
+>
+    <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <h1 class="text-4xl font-semibold tracking-tight">{privacy.title}</h1>
+        <p class="mt-4 text-lg text-muted-foreground">{privacy.description}</p>
+        {
+            privacy.sections.map((section) => (
+                <section class="mt-10">
+                    <h2 class="text-xl font-semibold">{section.title}</h2>
+                    <p class="mt-3 text-muted-foreground">{withDeploymentValues(section.text)}</p>
+                </section>
+            ))
+        }
+        <p class="mt-12">
+            <a href={getRelativeLocaleUrl(locale, '')} class="font-medium underline underline-offset-4">
+                {privacy.back}
+            </a>
+        </p>
+    </article>
+</Page>

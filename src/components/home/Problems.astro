@@ -1,0 +1,31 @@
+---
+import { type Locale, messagesOf } from '../../i18n/locales';
+
+interface Props {
+    locale: Locale;
+}
+
+const { problems } = messagesOf(Astro.props.locale);
+---
+
+<section class="border-y bg-muted/50">
+    <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <div class="max-w-2xl">
+            <h2 class="text-3xl font-semibold tracking-tight text-balance">{problems.title}</h2>
+            <p class="mt-4 text-lg text-muted-foreground">{problems.lead}</p>
+        </div>
+        <ol class="mt-12 grid gap-8 md:grid-cols-3">
+            {
+                problems.items.map((problem, index) => (
+                    <li>
+                        <p class="font-mono text-sm text-muted-foreground" aria-hidden="true">
+                            0{index + 1}
+                        </p>
+                        <h3 class="mt-2 text-lg font-semibold">{problem.title}</h3>
+                        <p class="mt-2 text-muted-foreground">{problem.text}</p>
+                    </li>
+                ))
+            }
+        </ol>
+    </div>
+</section>

@@ -1,0 +1,70 @@
+---
+import { formatPrice, type Locale, messagesOf } from '../../i18n/locales';
+import { site } from '../../site';
+import CheckIcon from '../CheckIcon.astro';
+import EditionCard from './EditionCard.astro';
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { editions } = messagesOf(locale);
+const waitlist = { label: editions.joinWaitlist, href: '#waitlist' };
+---
+
+<section id="editions" class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <div class="max-w-2xl">
+        <h2 class="text-3xl font-semibold tracking-tight text-balance">{editions.title}</h2>
+        <p class="mt-4 text-lg text-muted-foreground">{editions.lead}</p>
+    </div>
+    <div class="mt-12 grid items-start gap-6 lg:grid-cols-3">
+        <EditionCard
+            name={editions.free.name}
+            tagline={editions.free.tagline}
+            price={formatPrice(locale, 0)}
+            priceNote={editions.free.priceNote}
+            status={editions.available}
+            isAvailable
+            features={editions.free.features}
+            cta={{ label: editions.free.cta, href: site.repositoryUrl }}
+        />
+        <EditionCard
+            name={editions.pro.name}
+            tagline={editions.pro.tagline}
+            price={formatPrice(locale, site.prices.pro)}
+            priceNote={editions.pro.priceNote}
+            status={editions.comingSoon}
+            isAvailable={false}
+            features={editions.pro.features}
+            cta={waitlist}
+            featured
+        />
+        <EditionCard
+            name={editions.teams.name}
+            tagline={editions.teams.tagline}
+            price={formatPrice(locale, site.prices.teams)}
+            priceNote={editions.teams.priceNote}
+            status={editions.comingSoon}
+            isAvailable={false}
+            features={editions.teams.features}
+            cta={waitlist}
+        />
+    </div>
+    <div class="mt-6 rounded-2xl border bg-muted/50 p-6 sm:p-8">
+        <h3 class="font-semibold">{editions.includedTitle}</h3>
+        <ul class="mt-4 grid gap-3 text-sm md:grid-cols-3">
+            {
+                editions.included.map((inclusion) => (
+                    <li class="flex gap-3">
+                        <CheckIcon class="mt-0.5" />
+                        <span>{inclusion}</span>
+                    </li>
+                ))
+            }
+        </ul>
+        <p class="mt-6 text-sm text-muted-foreground">
+            {editions.bundle.replace('{price}', formatPrice(locale, site.prices.bundle))}
+        </p>
+    </div>
+</section>

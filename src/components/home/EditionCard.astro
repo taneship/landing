@@ -1,0 +1,63 @@
+---
+import ButtonLink from '../ButtonLink.astro';
+import CheckIcon from '../CheckIcon.astro';
+
+interface Props {
+    name: string;
+    tagline: string;
+    price: string;
+    priceNote: string;
+    /** The availability of the edition, as the badge says it. */
+    status: string;
+    isAvailable: boolean;
+    features: string[];
+    cta: { label: string; href: string };
+    /** Draws the card with a stronger border. */
+    featured?: boolean;
+}
+
+const { name, tagline, price, priceNote, status, isAvailable, features, cta, featured = false } =
+    Astro.props;
+---
+
+<article
+    class:list={[
+        'flex flex-col rounded-2xl border bg-card p-6 sm:p-8',
+        featured && 'border-foreground shadow-lg',
+    ]}
+>
+    <div class="flex items-center justify-between gap-4">
+        <h3 class="text-xl font-semibold">{name}</h3>
+        <span
+            class:list={[
+                'rounded-full px-3 py-1 text-xs font-medium',
+                isAvailable ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground',
+            ]}
+        >
+            {status}
+        </span>
+    </div>
+    <p class="mt-2 text-sm text-muted-foreground">{tagline}</p>
+    <p class="mt-6 flex flex-wrap items-baseline gap-x-2">
+        <span class="text-4xl font-semibold tracking-tight">{price}</span>
+        <span class="text-sm text-muted-foreground">{priceNote}</span>
+    </p>
+    <ButtonLink
+        href={cta.href}
+        variant={isAvailable || featured ? 'primary' : 'outline'}
+        arrow={isAvailable}
+        class="mt-6 w-full"
+    >
+        {cta.label}
+    </ButtonLink>
+    <ul class="mt-8 space-y-3 text-sm">
+        {
+            features.map((feature) => (
+                <li class="flex gap-3">
+                    <CheckIcon class="mt-0.5" />
+                    <span>{feature}</span>
+                </li>
+            ))
+        }
+    </ul>
+</article>

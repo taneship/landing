@@ -1,0 +1,75 @@
+---
+import { type Locale, messagesOf } from '../../i18n/locales';
+import { site } from '../../site';
+import ButtonLink from '../ButtonLink.astro';
+import CheckIcon from '../CheckIcon.astro';
+
+interface Props {
+    locale: Locale;
+}
+
+const { hero, gates } = messagesOf(Astro.props.locale);
+
+const commands = [
+    'gh repo create my-app --template taneship/taneship --private --clone',
+    'cd my-app',
+    'composer setup',
+    'composer dev',
+];
+---
+
+<section class="mx-auto max-w-6xl px-4 pt-16 pb-12 sm:px-6 sm:pt-24">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+        <div>
+            <p class="text-sm font-medium text-muted-foreground">{hero.stack}</p>
+            <h1 class="mt-4 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+                {hero.title}
+            </h1>
+            <p class="mt-6 text-lg text-pretty text-muted-foreground">{hero.lead}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+                <ButtonLink href={site.repositoryUrl} arrow>{hero.useTemplate}</ButtonLink>
+                <ButtonLink href="#waitlist" variant="outline">{hero.joinWaitlist}</ButtonLink>
+            </div>
+            <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                {
+                    hero.reassurances.map((reassurance) => (
+                        <li class="flex items-center gap-2">
+                            <CheckIcon class="text-foreground" />
+                            {reassurance}
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+
+        <figure class="min-w-0">
+            <div class="overflow-hidden rounded-xl border bg-card shadow-sm">
+                <div class="flex items-center gap-2 border-b px-4 py-3">
+                    <span class="size-3 rounded-full bg-border"></span>
+                    <span class="size-3 rounded-full bg-border"></span>
+                    <span class="size-3 rounded-full bg-border"></span>
+                    <span class="ml-2 text-xs text-muted-foreground">{hero.terminalLabel}</span>
+                </div>
+                <pre
+                    tabindex="0"
+                    aria-label={hero.terminalLabel}
+                    class="overflow-x-auto p-4 font-mono text-sm leading-7"><code>{commands.map((command) => (
+                        <span class="block before:mr-3 before:text-muted-foreground before:content-['$']">{command}</span>
+                    ))}</code></pre>
+            </div>
+            <figcaption class="mt-3 text-sm text-muted-foreground">{hero.terminalCaption}</figcaption>
+        </figure>
+    </div>
+
+    <h2 class="sr-only">{gates.title}</h2>
+    <dl class="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border bg-border lg:grid-cols-4">
+        {
+            gates.items.map((gate) => (
+                <div class="flex flex-col-reverse justify-end gap-1 bg-background p-6">
+                    <dt class="text-sm text-muted-foreground">{gate.label}</dt>
+                    <dd class="text-3xl font-semibold tracking-tight">{gate.value}</dd>
+                </div>
+            ))
+        }
+    </dl>
+</section>

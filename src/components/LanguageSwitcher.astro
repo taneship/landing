@@ -1,0 +1,35 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { languageNames, type Locale, locales, messagesOf } from '../i18n/locales';
+
+interface Props {
+    locale: Locale;
+    path: string;
+}
+
+const { locale, path } = Astro.props;
+const { header } = messagesOf(locale);
+---
+
+<nav aria-label={header.languagesLabel}>
+    <ul class="flex items-center gap-1 text-sm">
+        {
+            locales.map((language) => (
+                <li>
+                    <a
+                        href={getRelativeLocaleUrl(language, path)}
+                        hreflang={language}
+                        lang={language}
+                        title={languageNames[language]}
+                        aria-current={language === locale ? 'true' : undefined}
+                        class="inline-flex size-9 items-center justify-center rounded-md font-medium text-muted-foreground uppercase hover:bg-accent hover:text-foreground aria-[current]:bg-accent aria-[current]:text-foreground"
+                    >
+                        <span aria-hidden="true">{language}</span>
+                        <span class="sr-only">{languageNames[language]}</span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</nav>

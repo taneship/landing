@@ -1,0 +1,58 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+import { type Locale, messagesOf } from '../i18n/locales';
+import { site } from '../site';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+    locale: Locale;
+    path: string;
+}
+
+const { locale, path } = Astro.props;
+const { header } = messagesOf(locale);
+const home = getRelativeLocaleUrl(locale, '');
+
+const sections = [
+    { id: 'quality', label: header.quality },
+    { id: 'comparison', label: header.comparison },
+    { id: 'editions', label: header.editions },
+    { id: 'faq', label: header.faq },
+];
+---
+
+<header class="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6">
+        <a href={home} class="flex items-center gap-2 text-lg font-semibold tracking-tight">
+            <svg viewBox="0 0 32 32" class="size-6" aria-hidden="true">
+                <rect width="32" height="32" rx="7" class="fill-foreground"></rect>
+                <path d="M8 9h16v4.2h-5.9V24h-4.2V13.2H8z" class="fill-background"></path>
+            </svg>
+            {site.name}
+        </a>
+        <nav aria-label={header.navigationLabel} class="hidden md:block">
+            <ul class="flex items-center gap-6 text-sm text-muted-foreground">
+                {
+                    sections.map((section) => (
+                        <li>
+                            <a href={`${home}#${section.id}`} class="hover:text-foreground">
+                                {section.label}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+        <div class="ml-auto flex items-center gap-4">
+            <LanguageSwitcher locale={locale} path={path} />
+            <a
+                href={site.repositoryUrl}
+                rel="noopener"
+                class="hidden h-9 items-center rounded-lg border border-input px-4 text-sm font-medium hover:bg-accent sm:inline-flex"
+            >
+                GitHub
+            </a>
+        </div>
+    </div>
+</header>

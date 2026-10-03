@@ -1,0 +1,46 @@
+---
+interface Props {
+    href: string;
+    variant?: 'primary' | 'outline';
+    /** Shows an arrow after the label. */
+    arrow?: boolean;
+    class?: string;
+}
+
+const { href, variant = 'primary', arrow = false, class: className } = Astro.props;
+const isExternal = href.startsWith('http');
+
+const variants = {
+    primary: 'bg-primary text-primary-foreground hover:bg-primary/85',
+    outline: 'border border-input bg-background hover:bg-accent',
+};
+---
+
+<a
+    href={href}
+    rel={isExternal ? 'noopener' : undefined}
+    class:list={[
+        'inline-flex h-11 items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium transition-colors',
+        variants[variant],
+        className,
+    ]}
+>
+    <slot />
+    {
+        arrow && (
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-4"
+                aria-hidden="true"
+            >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+            </svg>
+        )
+    }
+</a>

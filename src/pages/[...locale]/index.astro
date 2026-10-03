@@ -1,0 +1,76 @@
+---
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+
+import Closing from '../../components/home/Closing.astro';
+import Comparison from '../../components/home/Comparison.astro';
+import Delivery from '../../components/home/Delivery.astro';
+import Editions from '../../components/home/Editions.astro';
+import Faq from '../../components/home/Faq.astro';
+import Guardrails from '../../components/home/Guardrails.astro';
+import Hero from '../../components/home/Hero.astro';
+import Problems from '../../components/home/Problems.astro';
+import Waitlist from '../../components/home/Waitlist.astro';
+import { type Locale, localeStaticPaths, messagesOf } from '../../i18n/locales';
+import Page from '../../layouts/Page.astro';
+import { site } from '../../site';
+
+export const getStaticPaths = localeStaticPaths;
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { meta, faq } = messagesOf(locale);
+const url = getAbsoluteLocaleUrl(locale, '');
+
+// Only Free is on sale: Pro and Teams get an offer when they can be bought.
+const structuredData = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: site.name,
+        description: meta.description,
+        url,
+        inLanguage: locale,
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Linux, macOS, Windows',
+        license: 'https://opensource.org/license/mit',
+        sameAs: site.repositoryUrl,
+        offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'EUR',
+            availability: 'https://schema.org/InStock',
+        },
+    },
+    {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        inLanguage: locale,
+        mainEntity: faq.items.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+    },
+];
+---
+
+<Page
+    locale={locale}
+    path=""
+    title={meta.title}
+    description={meta.description}
+    structuredData={structuredData}
+>
+    <Hero locale={locale} />
+    <Problems locale={locale} />
+    <Guardrails locale={locale} />
+    <Comparison locale={locale} />
+    <Editions locale={locale} />
+    <Delivery locale={locale} />
+    <Waitlist locale={locale} />
+    <Faq locale={locale} />
+    <Closing locale={locale} />
+</Page>

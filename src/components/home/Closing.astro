@@ -1,0 +1,19 @@
+---
+import { type Locale, messagesOf } from '../../i18n/locales';
+import { site } from '../../site';
+import ButtonLink from '../ButtonLink.astro';
+
+interface Props {
+    locale: Locale;
+}
+
+const { closing } = messagesOf(Astro.props.locale);
+---
+
+<section class="mx-auto max-w-6xl px-4 py-24 text-center sm:px-6">
+    <h2 class="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+        {closing.title}
+    </h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">{closing.text}</p>
+    <ButtonLink href={site.repositoryUrl} arrow class="mt-8">{closing.cta}</ButtonLink>
+</section>
