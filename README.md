@@ -52,7 +52,7 @@ A production build fails until these three variables are set, in Netlify under S
 | `PUBLISHER_NAME` | The legal name of the publisher, shown on the privacy page |
 | `CONTACT_EMAIL` | The address visitors write to about their data |
 
-The waitlist form posts straight to Brevo. In Brevo, create a subscription form with double opt-in and a consent checkbox, then copy the `action` of its HTML version. The form assumes the field names of Brevo's HTML forms: `EMAIL`, `OPT_IN`, `locale`, `html_type` and the `email_address_check` honeypot. Compare them with the form Brevo generates, and fix `src/components/home/Waitlist.astro` if one differs.
+The waitlist form posts straight to Brevo. In Brevo, create a subscription form with double opt-in and a consent checkbox, then copy the `action` of its HTML version. The form sends the fields of Brevo's HTML form: `EMAIL`, `OPT_IN`, `locale` and the `email_address_check` honeypot. If the form changes in Brevo, compare its fields with `src/components/home/Waitlist.astro`.
 
 The canonical URLs, the hreflang links and the sitemap use the `URL` variable, which Netlify sets to the site's main address.
 
