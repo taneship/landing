@@ -28,7 +28,7 @@ src/
 │   ├── locales.ts          The locales, their messages, price and date formats
 │   └── en.ts, fr.ts, es.ts The text of every page: en.ts gives the others their type
 ├── layouts/Page.astro      HTML shell: meta tags, hreflang, Open Graph, structured data
-├── components/             Header, footer, language switcher, buttons
+├── components/             Header, footer, language switcher, buttons, and the blocks that pages share
 ├── components/home/        The sections of the home page, in the order index.astro lists them
 ├── pages/[...locale]/      One file per page, built once per locale: /, /fr/, /es/
 ├── pages/robots.txt.ts
@@ -39,6 +39,8 @@ netlify.toml                Build settings, security headers, cache
 ```
 
 To change a text, edit it in the three files of `src/i18n/`. To change a price, edit `src/site.ts`.
+
+The home page and `/vs-laravel-react-starter-kit/` compare Taneship Free with Laravel's official React starter kit. When either kit changes, read both again, update the rows in the three files of `src/i18n/`, then set `comparedOn` and `officialKit.comparedCommit` in `src/site.ts`.
 
 ## Before going live
 

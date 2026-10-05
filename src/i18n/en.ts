@@ -114,6 +114,7 @@ export const en = {
             },
         ],
         note: 'Compared on {date}, from the main branch of each repository.',
+        fullComparison: 'Read the full comparison',
     },
     editions: {
         title: 'Three editions, three independent codebases',
@@ -245,6 +246,380 @@ export const en = {
         privacy: 'Privacy',
         trademark:
             'Laravel is a trademark of Laravel Holdings Inc. Taneship is not affiliated with Laravel.',
+    },
+    officialKitComparison: {
+        meta: {
+            title: 'Taneship vs Laravel React starter kit: full comparison',
+            description:
+                'Taneship Free and Laravel’s official React starter kit compared line by line: authentication code, Larastan level, tests, rendering, CI and coding agents.',
+        },
+        breadcrumbLabel: 'Breadcrumb',
+        title: 'Taneship Free vs Laravel’s official React starter kit',
+        lead: 'Both kits are free, under the MIT license, and ship the same features on Laravel 13, Inertia 3 and React 19. They differ in where the authentication code lives, and in how much of the code a tool checks. This page compares them file by file.',
+        note: 'Compared on {date}: commit {commit} of the official kit, and the main branch of Taneship Free.',
+        sources: {
+            official: 'Laravel’s React starter kit on GitHub',
+            taneship: 'Taneship Free on GitHub',
+        },
+        verdict: {
+            title: 'Which one to choose',
+            official: {
+                title: 'Choose the official kit if',
+                items: [
+                    'You want a kit maintained by the Laravel team and documented on laravel.com.',
+                    'You prefer authentication that stays in a package: composer update brings the fixes of Laravel Fortify.',
+                    'You want to select the authentication features when laravel new creates the project.',
+                    'You run PHP 8.3 or 8.4.',
+                    'You want a choice of layouts: sidebar or header, and three designs for the sign-in pages.',
+                ],
+            },
+            taneship: {
+                title: 'Choose Taneship Free if',
+                items: [
+                    'You want to read and change every line of the authentication, with no package between you and the code.',
+                    'You want static analysis at its maximum from the first commit: Larastan level 10, with no baseline.',
+                    'Coding agents write part of your code, and you want tools to reject what breaks a rule.',
+                    'You want every page rendered on the server and tested in a browser.',
+                    'You are considering Taneship Pro or Teams: Free is the code they start from.',
+                ],
+            },
+        },
+        shared: {
+            title: 'What both kits give you',
+            lead: 'Taneship Free was built to match the official kit feature for feature. With either one, your project starts with:',
+            items: [
+                'Sign-up, sign-in with rate-limited attempts, sign-out',
+                'Email verification and password reset',
+                'Password confirmation before sensitive pages',
+                'Two-factor authentication with recovery codes',
+                'Passkeys, to sign in and to confirm a password',
+                'Profile, password change and account deletion',
+                'A light, dark or system theme',
+                'A dashboard behind a sidebar, built with shadcn/ui',
+                'Typed routes with Laravel Wayfinder, and the React Compiler',
+                'The MIT license',
+            ],
+        },
+        details: {
+            title: 'The detailed comparison',
+            lead: 'Seven areas, from the stack to continuous integration. Every line comes from the files of the two repositories.',
+            groups: [
+                {
+                    title: 'Stack and project setup',
+                    text: 'The foundations are the same. Taneship pins newer versions and asks for a newer PHP. The official kit installs through the Laravel installer and offers more layouts.',
+                    rows: [
+                        {
+                            criterion: 'Framework',
+                            taneship: 'Laravel 13, Inertia 3, React 19',
+                            official: 'Laravel 13, Inertia 3, React 19',
+                        },
+                        {
+                            criterion: 'PHP',
+                            taneship: '8.5',
+                            official: '8.3 or later',
+                        },
+                        {
+                            criterion: 'TypeScript',
+                            taneship: 'TypeScript 7',
+                            official: 'TypeScript 5',
+                        },
+                        {
+                            criterion: 'Toolchain',
+                            taneship: 'Vite+ 1: Vite, Vitest, Oxlint, Oxfmt',
+                            official: 'Vite+ 0.3: Vite, Oxlint, Oxfmt',
+                        },
+                        {
+                            criterion: 'Components',
+                            taneship: 'shadcn/ui on Base UI',
+                            official: 'shadcn/ui on Radix UI',
+                        },
+                        {
+                            criterion: 'Creating a project',
+                            taneship: 'A GitHub template: gh repo create --template',
+                            official: 'The Laravel installer: laravel new',
+                        },
+                        {
+                            criterion: 'Removing a feature',
+                            taneship: 'You delete its code',
+                            official: 'A prompt at installation removes the authentication features you do not select',
+                        },
+                        {
+                            criterion: 'Layouts',
+                            taneship: 'One application layout with a sidebar, one authentication layout',
+                            official: 'Sidebar or header layout, and three authentication layouts',
+                        },
+                    ],
+                },
+                {
+                    title: 'Authentication code',
+                    text: 'This is the largest difference. The official kit delegates authentication to Laravel Fortify: the routes, the controllers and the logic live in vendor/, and your application configures them through config/fortify.php and a service provider. Taneship has no Fortify: each operation is an action of your application, called by a controller you can read.',
+                    rows: [
+                        {
+                            criterion: 'Where the logic lives',
+                            taneship: 'app/Actions, one class per operation: RegisterUser, VerifyEmail, ResetPassword',
+                            official: 'The laravel/fortify package, completed by two classes in app/Actions/Fortify',
+                        },
+                        {
+                            criterion: 'Routes',
+                            taneship: 'routes/identity.php, in your application',
+                            official: 'Registered by the package',
+                        },
+                        {
+                            criterion: 'Controllers',
+                            taneship: 'app/Http/Controllers/Auth, with resourceful methods only',
+                            official: 'In the package',
+                        },
+                        {
+                            criterion: 'Changing a behavior',
+                            taneship: 'You edit the action',
+                            official: 'Through the configuration, the callbacks and the contracts of Fortify',
+                        },
+                        {
+                            criterion: 'Two-factor authentication',
+                            taneship: 'Actions of your application, on pragmarx/google2fa',
+                            official: 'Fortify',
+                        },
+                        {
+                            criterion: 'Passkeys',
+                            taneship: 'Actions of your application, on web-auth/webauthn-lib and @simplewebauthn/browser',
+                            official: 'Fortify and @laravel/passkeys',
+                        },
+                        {
+                            criterion: 'Security fixes',
+                            taneship: 'You port them by hand from the releases of Taneship',
+                            official: 'composer update brings the fixes of Fortify',
+                        },
+                    ],
+                },
+                {
+                    title: 'Static analysis and code rules',
+                    text: 'Both kits run Larastan and Pint. Taneship raises Larastan to its maximum, adds Rector, and turns its conventions into rules that fail the build.',
+                    rows: [
+                        {
+                            criterion: 'Larastan level',
+                            taneship: '10, the maximum',
+                            official: '7',
+                        },
+                        {
+                            criterion: 'Baselines and ignore comments',
+                            taneship: 'None, and a test rejects them',
+                            official: 'No rule',
+                        },
+                        {
+                            criterion: 'Automated refactoring',
+                            taneship: 'Rector, with the Laravel rules',
+                            official: 'None',
+                        },
+                        {
+                            criterion: 'PHP formatting',
+                            taneship: 'Pint',
+                            official: 'Pint',
+                        },
+                        {
+                            criterion: 'Strict types and final classes',
+                            taneship: 'Required in every file, checked by a test',
+                            official: 'Not required',
+                        },
+                        {
+                            criterion: 'Type coverage',
+                            taneship: '100% required',
+                            official: 'Not measured',
+                        },
+                        {
+                            criterion: 'TypeScript lint',
+                            taneship: 'Type-aware Oxlint: any, non-null assertions and @ts-ignore are errors',
+                            official: 'Type-aware Oxlint, with its default rules',
+                        },
+                        {
+                            criterion: 'Git hooks',
+                            taneship: 'They fix the staged files and check the commit message',
+                            official: 'None',
+                        },
+                    ],
+                },
+                {
+                    title: 'Tests',
+                    text: 'The official kit ships feature tests for its authentication and settings pages. Taneship adds architecture tests, browser tests and coverage thresholds.',
+                    rows: [
+                        {
+                            criterion: 'Framework',
+                            taneship: 'Pest 5',
+                            official: 'PHPUnit 12 by default',
+                        },
+                        {
+                            criterion: 'Feature tests',
+                            taneship: 'Every action and every route',
+                            official: 'The authentication and settings pages',
+                        },
+                        {
+                            criterion: 'Architecture tests',
+                            taneship: 'Layering, naming, strict types, final classes, unused code, translation keys',
+                            official: 'None',
+                        },
+                        {
+                            criterion: 'Browser tests',
+                            taneship: 'Every page in light and in dark mode, and the critical journeys, on Playwright',
+                            official: 'None',
+                        },
+                        {
+                            criterion: 'Accessibility',
+                            taneship: 'axe runs on every page: no issue at any impact level',
+                            official: 'Not tested',
+                        },
+                        {
+                            criterion: 'Test coverage',
+                            taneship: '90% minimum, or the build fails',
+                            official: 'Not measured',
+                        },
+                        {
+                            criterion: 'Front-end unit tests',
+                            taneship: 'Vitest',
+                            official: 'None',
+                        },
+                        {
+                            criterion: 'Databases tested',
+                            taneship: 'SQLite, PostgreSQL and MySQL',
+                            official: 'SQLite',
+                        },
+                    ],
+                },
+                {
+                    title: 'Rendering, theme and interface text',
+                    text: 'Both kits render React pages through Inertia. Taneship renders them on the server by default, stores the theme on the account and keeps every text in a translation file.',
+                    rows: [
+                        {
+                            criterion: 'Server-side rendering',
+                            taneship: 'On by default: one build produces the client and server bundles, and the browser tests check that each page was rendered on the server',
+                            official: 'Optional: a separate build:ssr script produces the server bundle',
+                        },
+                        {
+                            criterion: 'Theme',
+                            taneship: 'Stored on the account: it follows the user from one device to another',
+                            official: 'Stored in the browser: a cookie and localStorage',
+                        },
+                        {
+                            criterion: 'Interface text',
+                            taneship: 'In translation files, ready for other languages',
+                            official: 'Written in the components, in English',
+                        },
+                        {
+                            criterion: 'Security headers',
+                            taneship: 'Sent by a middleware of the application',
+                            official: 'Left to you',
+                        },
+                        {
+                            criterion: 'Lighthouse',
+                            taneship: 'At least 95 on mobile for the public pages, checked in CI',
+                            official: 'Not measured',
+                        },
+                    ],
+                },
+                {
+                    title: 'Coding agents',
+                    text: 'Both kits work with coding agents. Taneship writes its rules down for them, then lets the tools reject what breaks one.',
+                    rows: [
+                        {
+                            criterion: 'Conventions',
+                            taneship: 'AGENTS.md: stack, structure, naming, tests and boundaries',
+                            official: 'No conventions file in the repository',
+                        },
+                        {
+                            criterion: 'Laravel Boost',
+                            taneship: 'Included, for its MCP server',
+                            official: 'Not in the repository: the Laravel installer can add it',
+                        },
+                        {
+                            criterion: 'What stops a drift',
+                            taneship: 'Larastan level 10, the architecture tests and the coverage thresholds fail the build',
+                            official: 'Larastan level 7 and the feature tests',
+                        },
+                    ],
+                },
+                {
+                    title: 'Continuous integration',
+                    text: 'Each kit ships its GitHub Actions workflows. The official kit has one, which runs the lint, the type checks and the tests. Taneship has four.',
+                    rows: [
+                        {
+                            criterion: 'Workflows',
+                            taneship: 'Four: quality gates, Lighthouse, commit messages, dependency audits',
+                            official: 'One: lint, type checks and tests',
+                        },
+                        {
+                            criterion: 'Runtime',
+                            taneship: 'PHP 8.5 and Node.js 24',
+                            official: 'PHP 8.3 and Node.js 22',
+                        },
+                        {
+                            criterion: 'Dependencies',
+                            taneship: 'composer audit and npm audit on every push, and every week',
+                            official: 'Dependabot, for the GitHub Actions',
+                        },
+                        {
+                            criterion: 'Commit messages',
+                            taneship: 'Conventional Commits, checked on every commit and in CI',
+                            official: 'No rule',
+                        },
+                    ],
+                },
+            ],
+        },
+        signUp: {
+            title: 'One example: the sign-up',
+            official: 'In the official kit, the routes and the controller of Fortify receive the request. They call app/Actions/Fortify/CreateNewUser, a class that implements a contract of Fortify: it validates an array of input and creates the user. Fortify then signs the user in and redirects.',
+            taneship: 'In Taneship, routes/identity.php sends the request to RegistrationController. RegisterUserRequest validates it and returns a RegistrationData object, the RegisterUser action creates the user, and the controller signs them in. Four short files, all in your application.',
+            caption: 'The sign-up action of Taneship Free, as it ships.',
+        },
+        tryBoth: {
+            title: 'Try both in five minutes',
+            lead: 'Neither kit needs a third-party key. Install them side by side, then read their code.',
+            official: 'Laravel’s official kit',
+            officialCaption: 'The installer asks for a starter kit: choose React.',
+            taneship: 'Taneship Free',
+            taneshipCaption: 'The seeders create a demo user to sign in with.',
+        },
+        faq: {
+            title: 'Questions about this comparison',
+            items: [
+                {
+                    question: 'Is Taneship a fork of Laravel’s React starter kit?',
+                    answer: 'No. Taneship Free is written from scratch. It reproduces the features of the official kit and shares its stack: Laravel 13, Inertia 3, React 19, Wayfinder and shadcn/ui.',
+                },
+                {
+                    question: 'Does Taneship Free have every feature of the official kit?',
+                    answer: 'Yes: sign-up, sign-in, email verification, password reset, password confirmation, two-factor authentication, passkeys, profile, password change, account deletion and the choice of theme. Two things are left out on purpose: the alternative layouts, which are presentation choices, and the feature prompt of the installer. In Taneship, you delete the code you do not want.',
+                },
+                {
+                    question: 'Why does Taneship not use Laravel Fortify?',
+                    answer: 'Fortify keeps the authentication logic in a package and drives it through configuration and callbacks. Taneship writes authentication in actions and controllers of your application, so that you read and change it like the rest of your code. The trade-off: you port security fixes from the releases of Taneship by hand, where composer update brings those of Fortify.',
+                },
+                {
+                    question: 'Does Laravel’s React starter kit support server-side rendering?',
+                    answer: 'Yes, as an option: its build:ssr script produces the server bundle. In Taneship, server-side rendering is on by default: the standard build produces both bundles, and each browser test checks that the page was rendered on the server.',
+                },
+                {
+                    question: 'Is Larastan level 10 harder to live with than level 7?',
+                    answer: 'It asks more of the code you write: levels 8 to 10 reject calls on values that may be null, and operations on values whose type is unknown. Taneship passes level 10 with no baseline, so your project starts from zero errors, and each error you meet points to a line of your own code.',
+                },
+                {
+                    question: 'Which of the two kits suits coding agents better?',
+                    answer: 'Both work with Claude Code, Codex, Cursor and the others. Taneship gives agents written conventions in AGENTS.md, then checks what they write: Larastan level 10, the architecture tests, a 90% coverage threshold and the browser tests reject code that breaks a rule, whoever wrote it.',
+                },
+                {
+                    question: 'Can I move a project from the official kit to Taneship?',
+                    answer: 'Not automatically: the two kits organize their code differently, and Taneship has no installer and no upgrade command. For a project that has barely started, create a new one from the Taneship template and move your code into it. For an older project, take what you need: the quality gates, the architecture tests and AGENTS.md can be copied one by one.',
+                },
+                {
+                    question: 'What does Taneship cost?',
+                    answer: 'Taneship Free is free and open source under the MIT license, like the official kit. Taneship Pro and Taneship Teams, which add what a SaaS needs to sell, are paid editions, announced as coming soon.',
+                },
+            ],
+        },
+        closing: {
+            title: 'Read both, then decide',
+            text: 'The official kit is one command away, and Taneship Free is a public repository. The code is the best argument either of them has.',
+            cta: 'Open Taneship on GitHub',
+            home: 'Discover Taneship and its editions',
+        },
     },
     privacy: {
         title: 'Privacy',

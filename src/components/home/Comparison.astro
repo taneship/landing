@@ -1,6 +1,10 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
 import { formatDate, type Locale, messagesOf } from '../../i18n/locales';
 import { site } from '../../site';
+import ArrowIcon from '../ArrowIcon.astro';
+import ComparisonTable from '../ComparisonTable.astro';
 
 interface Props {
     locale: Locale;
@@ -16,36 +20,20 @@ const { comparison } = messagesOf(locale);
             <h2 class="text-3xl font-semibold tracking-tight text-balance">{comparison.title}</h2>
             <p class="mt-4 text-lg text-muted-foreground">{comparison.lead}</p>
         </div>
-        <div class="mt-12 overflow-x-auto rounded-xl border bg-card" tabindex="0" role="region" aria-label={comparison.title}>
-            <table class="w-full min-w-[40rem] text-left text-sm">
-                <thead>
-                    <tr class="border-b">
-                        <th scope="col" class="w-1/4 p-4 font-medium text-muted-foreground">
-                            {comparison.criterion}
-                        </th>
-                        <th scope="col" class="p-4 font-semibold">{comparison.taneship}</th>
-                        <th scope="col" class="p-4 font-medium text-muted-foreground">
-                            {comparison.official}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        comparison.rows.map((row) => (
-                            <tr class="border-b last:border-b-0">
-                                <th scope="row" class="p-4 font-medium text-muted-foreground">
-                                    {row.criterion}
-                                </th>
-                                <td class="p-4 font-medium">{row.taneship}</td>
-                                <td class="p-4 text-muted-foreground">{row.official}</td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+        <div class="mt-12">
+            <ComparisonTable locale={locale} label={comparison.title} rows={comparison.rows} />
         </div>
-        <p class="mt-4 text-sm text-muted-foreground">
-            {comparison.note.replace('{date}', formatDate(locale, site.comparedOn))}
-        </p>
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-sm">
+            <p class="text-muted-foreground">
+                {comparison.note.replace('{date}', formatDate(locale, site.comparedOn))}
+            </p>
+            <a
+                href={getRelativeLocaleUrl(locale, site.officialKit.comparisonPath)}
+                class="inline-flex items-center gap-1.5 font-medium underline underline-offset-4"
+            >
+                {comparison.fullComparison}
+                <ArrowIcon />
+            </a>
+        </div>
     </div>
 </section>

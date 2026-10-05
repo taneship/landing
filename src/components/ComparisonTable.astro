@@ -1,0 +1,42 @@
+---
+import { type Locale, messagesOf } from '../i18n/locales';
+
+interface Props {
+    locale: Locale;
+    /** What the table compares, for the screen readers that land on it. */
+    label: string;
+    rows: { criterion: string; taneship: string; official: string }[];
+}
+
+const { locale, label, rows } = Astro.props;
+const { comparison } = messagesOf(locale);
+---
+
+<div class="overflow-x-auto rounded-xl border bg-card" tabindex="0" role="region" aria-label={label}>
+    <table class="w-full min-w-[40rem] table-fixed text-left text-sm">
+        <thead>
+            <tr class="border-b">
+                <th scope="col" class="w-1/4 p-4 font-medium text-muted-foreground">
+                    {comparison.criterion}
+                </th>
+                <th scope="col" class="p-4 font-semibold">{comparison.taneship}</th>
+                <th scope="col" class="p-4 font-medium text-muted-foreground">
+                    {comparison.official}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                rows.map((row) => (
+                    <tr class="border-b last:border-b-0">
+                        <th scope="row" class="p-4 font-medium text-muted-foreground">
+                            {row.criterion}
+                        </th>
+                        <td class="p-4 font-medium">{row.taneship}</td>
+                        <td class="p-4 text-muted-foreground">{row.official}</td>
+                    </tr>
+                ))
+            }
+        </tbody>
+    </table>
+</div>

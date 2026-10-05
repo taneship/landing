@@ -7,6 +7,20 @@ export const site = {
     prices: { pro: 199, teams: 229, bundle: 249 },
     /** The date the comparison with Laravel's official starter kit was made. */
     comparedOn: new Date('2026-09-28'),
+    /** Laravel's official React starter kit, and the commit of its main branch the comparison read. */
+    officialKit: {
+        repositoryUrl: 'https://github.com/laravel/react-starter-kit',
+        comparedCommit: '717b8f5',
+        /** The path of the page that compares the two kits, inside its locale. */
+        comparisonPath: 'vs-laravel-react-starter-kit',
+    },
+    /** The commands that create a project from Taneship Free and start it. */
+    createProjectCommands: [
+        'gh repo create my-app --template taneship/taneship --private --clone',
+        'cd my-app',
+        'composer setup',
+        'composer dev',
+    ],
 } as const;
 
 /**

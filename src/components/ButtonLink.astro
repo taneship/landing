@@ -1,4 +1,6 @@
 ---
+import ArrowIcon from './ArrowIcon.astro';
+
 interface Props {
     href: string;
     variant?: 'primary' | 'outline';
@@ -26,21 +28,5 @@ const variants = {
     ]}
 >
     <slot />
-    {
-        arrow && (
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="size-4"
-                aria-hidden="true"
-            >
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-            </svg>
-        )
-    }
+    {arrow && <ArrowIcon />}
 </a>
