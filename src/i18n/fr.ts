@@ -135,6 +135,7 @@ export const fr: Messages = {
                 'Double authentification et passkeys',
                 'Profil, mot de passe et suppression du compte',
                 'Thème clair, sombre ou système, enregistré sur le compte',
+                'Textes de l’interface dans des fichiers de traduction, prêts pour d’autres langues, y compris de droite à gauche',
                 'Contrôles qualité, CI et conventions pour les agents',
             ],
         },
@@ -488,7 +489,7 @@ export const fr: Messages = {
                 },
                 {
                     title: 'Rendu, thème et textes de l’interface',
-                    text: 'Les deux kits affichent des pages React à travers Inertia. Taneship les rend côté serveur par défaut, enregistre le thème sur le compte et garde chaque texte dans un fichier de traduction.',
+                    text: 'Les deux kits affichent des pages React à travers Inertia. Taneship les rend côté serveur par défaut, enregistre le thème sur le compte, garde chaque texte dans un fichier de traduction et se lit aussi de droite à gauche.',
                     rows: [
                         {
                             criterion: 'Rendu côté serveur',
@@ -504,6 +505,11 @@ export const fr: Messages = {
                             criterion: 'Textes de l’interface',
                             taneship: 'Dans des fichiers de traduction, prêts pour d’autres langues',
                             official: 'Écrits dans les composants, en anglais',
+                        },
+                        {
+                            criterion: 'Langues de droite à gauche',
+                            taneship: 'Prêt : le sens de la page suit la langue, les composants utilisent des classes CSS logiques, et la navigation au clavier comme les menus suivent ce sens',
+                            official: 'Non prévu : les composants utilisent des classes gauche et droite',
                         },
                         {
                             criterion: 'En-têtes de sécurité',

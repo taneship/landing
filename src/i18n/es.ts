@@ -134,6 +134,7 @@ export const es: Messages = {
                 'Autenticación en dos pasos y passkeys',
                 'Perfil, contraseña y eliminación de la cuenta',
                 'Tema claro, oscuro o del sistema, guardado en la cuenta',
+                'Textos de la interfaz en archivos de traducción, listos para otros idiomas, incluidos los de derecha a izquierda',
                 'Controles de calidad, CI y convenciones para agentes',
             ],
         },
@@ -487,7 +488,7 @@ export const es: Messages = {
                 },
                 {
                     title: 'Renderizado, tema y textos de la interfaz',
-                    text: 'Los dos kits muestran páginas de React a través de Inertia. Taneship las renderiza en el servidor por defecto, guarda el tema en la cuenta y mantiene cada texto en un archivo de traducción.',
+                    text: 'Los dos kits muestran páginas de React a través de Inertia. Taneship las renderiza en el servidor por defecto, guarda el tema en la cuenta, mantiene cada texto en un archivo de traducción y también se lee de derecha a izquierda.',
                     rows: [
                         {
                             criterion: 'Renderizado en el servidor',
@@ -503,6 +504,11 @@ export const es: Messages = {
                             criterion: 'Textos de la interfaz',
                             taneship: 'En archivos de traducción, listos para otros idiomas',
                             official: 'Escritos en los componentes, en inglés',
+                        },
+                        {
+                            criterion: 'Idiomas de derecha a izquierda',
+                            taneship: 'Listo: la dirección de la página sigue el idioma, los componentes usan clases CSS lógicas, y la navegación con el teclado y los menús siguen esa dirección',
+                            official: 'Sin preparar: los componentes usan clases de izquierda y derecha',
                         },
                         {
                             criterion: 'Cabeceras de seguridad',

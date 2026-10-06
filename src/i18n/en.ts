@@ -132,6 +132,7 @@ export const en = {
                 'Two-factor authentication and passkeys',
                 'Profile, password and account deletion',
                 'Light, dark or system theme, stored on the account',
+                'Interface text in translation files, ready for other languages, right-to-left ones included',
                 'Quality gates, CI and conventions for agents',
             ],
         },
@@ -485,7 +486,7 @@ export const en = {
                 },
                 {
                     title: 'Rendering, theme and interface text',
-                    text: 'Both kits render React pages through Inertia. Taneship renders them on the server by default, stores the theme on the account and keeps every text in a translation file.',
+                    text: 'Both kits render React pages through Inertia. Taneship renders them on the server by default, stores the theme on the account, keeps every text in a translation file and reads right to left as well.',
                     rows: [
                         {
                             criterion: 'Server-side rendering',
@@ -501,6 +502,11 @@ export const en = {
                             criterion: 'Interface text',
                             taneship: 'In translation files, ready for other languages',
                             official: 'Written in the components, in English',
+                        },
+                        {
+                            criterion: 'Right-to-left languages',
+                            taneship: 'Ready: the page direction follows the locale, the components use logical CSS classes, and keyboard navigation and popups follow the direction',
+                            official: 'Not set up: the components use left and right classes',
                         },
                         {
                             criterion: 'Security headers',
