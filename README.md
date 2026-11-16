@@ -54,6 +54,15 @@ A production build fails until these three variables are set, in Netlify under S
 
 The waitlist form posts straight to Brevo. In Brevo, create a subscription form with double opt-in and a consent checkbox, then copy the `action` of its HTML version. The form sends the fields of Brevo's HTML form: `EMAIL`, `OPT_IN`, `locale` and the `email_address_check` honeypot. If the form changes in Brevo, compare its fields with `src/components/home/Waitlist.astro`.
 
+In the settings of the form, under the double confirmation, enable both confirmation pages and give them these URLs, with the site's main address:
+
+| Option in Brevo | URL |
+|---|---|
+| Confirmation page after submitting the form | `https://<site>/brevo/waitlist/pending` |
+| Confirmation page after clicking the validation link in the email | `https://<site>/brevo/waitlist/confirmed` |
+
+Without them, Brevo answers the form with its own JSON message. `netlify.toml` redirects these URLs to `/waitlist/pending/` and `/waitlist/confirmed/` in the language of the visitor's browser.
+
 The canonical URLs, the hreflang links and the sitemap use the `URL` variable, which Netlify sets to the site's main address.
 
 Two more checks:

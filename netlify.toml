@@ -5,6 +5,44 @@ publish = "dist"
 [build.environment]
 NODE_VERSION = "24"
 
+# Brevo sends a visitor to one URL for all languages: these rules send them on to the page
+# in the language of their browser. The URLs are not those of the pages, which Netlify matches
+# with or without the trailing slash: a rule on the English page would send a visitor who
+# switches to English back to their browser's language.
+[[redirects]]
+from = "/brevo/waitlist/pending"
+to = "/fr/waitlist/pending/"
+status = 302
+conditions = { Language = ["fr"] }
+
+[[redirects]]
+from = "/brevo/waitlist/pending"
+to = "/es/waitlist/pending/"
+status = 302
+conditions = { Language = ["es"] }
+
+[[redirects]]
+from = "/brevo/waitlist/pending"
+to = "/waitlist/pending/"
+status = 302
+
+[[redirects]]
+from = "/brevo/waitlist/confirmed"
+to = "/fr/waitlist/confirmed/"
+status = 302
+conditions = { Language = ["fr"] }
+
+[[redirects]]
+from = "/brevo/waitlist/confirmed"
+to = "/es/waitlist/confirmed/"
+status = 302
+conditions = { Language = ["es"] }
+
+[[redirects]]
+from = "/brevo/waitlist/confirmed"
+to = "/waitlist/confirmed/"
+status = 302
+
 [[headers]]
 for = "/*"
 

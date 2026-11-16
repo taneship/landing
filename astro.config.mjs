@@ -30,6 +30,8 @@ export default defineConfig({
     },
     integrations: [
         sitemap({
+            // The waitlist pages are where Brevo sends a visitor after the form: search engines skip them.
+            filter: (page) => !new URL(page).pathname.includes('/waitlist/'),
             i18n: {
                 defaultLocale: 'en',
                 locales: { en: 'en', fr: 'fr', es: 'es' },

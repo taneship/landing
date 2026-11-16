@@ -15,9 +15,11 @@ interface Props {
     title: string;
     description: string;
     structuredData?: Record<string, unknown>[];
+    /** False for a page that search engines must not list. The sitemap leaves it out too. */
+    indexed?: boolean;
 }
 
-const { locale, path, title, description, structuredData = [] } = Astro.props;
+const { locale, path, title, description, structuredData = [], indexed = true } = Astro.props;
 const messages = messagesOf(locale);
 const canonicalUrl = getAbsoluteLocaleUrl(locale, path);
 const socialImageUrl = new URL(`/og/${locale}.png`, Astro.site);
@@ -30,6 +32,7 @@ const socialImageUrl = new URL(`/og/${locale}.png`, Astro.site);
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{title}</title>
         <meta name="description" content={description} />
+        {!indexed && <meta name="robots" content="noindex" />}
         <link rel="canonical" href={canonicalUrl} />
         {
             locales.map((alternate) => (

@@ -661,4 +661,16 @@ export const fr: Messages = {
             },
         ],
     },
+    waitlistPending: {
+        title: 'Vérifiez votre boîte de réception',
+        description: 'Nous vous avons envoyé un e-mail pour confirmer votre adresse. Cliquez sur le lien qu’il contient : d’ici là, votre adresse n’est pas sur la liste d’attente.',
+        hint: 'Rien après quelques minutes ? Regardez dans vos spams, ou saisissez à nouveau votre adresse sur la page d’accueil.',
+        back: 'Retour à l’accueil',
+    },
+    waitlistConfirmed: {
+        title: 'Vous êtes sur la liste d’attente',
+        description: 'Votre adresse est confirmée. Vous recevrez un e-mail à la sortie de chaque édition, Pro d’abord, puis Teams.',
+        hint: 'Chaque e-mail contient un lien de désinscription.',
+        back: 'Retour à l’accueil',
+    },
 };

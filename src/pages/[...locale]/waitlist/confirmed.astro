@@ -1,0 +1,26 @@
+---
+import StatusMessage from '../../../components/StatusMessage.astro';
+import { type Locale, localeStaticPaths, messagesOf } from '../../../i18n/locales';
+import Page from '../../../layouts/Page.astro';
+import { site } from '../../../site';
+
+export const getStaticPaths = localeStaticPaths;
+
+interface Props {
+    locale: Locale;
+}
+
+// Brevo sends the visitor here once they click the link of the confirmation email: see "Before going live" in README.md.
+const { locale } = Astro.props;
+const { waitlistConfirmed } = messagesOf(locale);
+---
+
+<Page
+    locale={locale}
+    path="waitlist/confirmed"
+    title={`${waitlistConfirmed.title} — ${site.name}`}
+    description={waitlistConfirmed.description}
+    indexed={false}
+>
+    <StatusMessage locale={locale} message={waitlistConfirmed} />
+</Page>

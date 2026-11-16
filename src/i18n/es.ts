@@ -660,4 +660,16 @@ export const es: Messages = {
             },
         ],
     },
+    waitlistPending: {
+        title: 'Revisa tu bandeja de entrada',
+        description: 'Te hemos enviado un correo para confirmar tu dirección. Haz clic en el enlace que contiene: hasta entonces, tu dirección no está en la lista de espera.',
+        hint: '¿Nada después de unos minutos? Mira en la carpeta de spam, o vuelve a introducir tu dirección en la página de inicio.',
+        back: 'Volver al inicio',
+    },
+    waitlistConfirmed: {
+        title: 'Estás en la lista de espera',
+        description: 'Tu dirección está confirmada. Recibirás un correo cuando se publique cada edición, primero Pro y después Teams.',
+        hint: 'Cada correo incluye un enlace para darte de baja.',
+        back: 'Volver al inicio',
+    },
 };

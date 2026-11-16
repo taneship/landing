@@ -658,4 +658,16 @@ export const en = {
             },
         ],
     },
+    waitlistPending: {
+        title: 'Check your inbox',
+        description: 'We have sent you an email to confirm your address. Click the link it contains: until then, your address is not on the waitlist.',
+        hint: 'Nothing after a few minutes? Look in your spam folder, or enter your address again on the home page.',
+        back: 'Back to the home page',
+    },
+    waitlistConfirmed: {
+        title: 'You are on the waitlist',
+        description: 'Your address is confirmed. You will receive an email when each edition is released, Pro first, then Teams.',
+        hint: 'Every email has an unsubscribe link.',
+        back: 'Back to the home page',
+    },
 };
